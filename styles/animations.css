@@ -1,0 +1,46 @@
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+/* the text flips quickly when the background crosses mid-gray
+   (instead of fading with it), and the glow in the opposite color
+   covers the moment where the background is right in the middle.
+   with the "ease" timing of the background, the middle of the screen
+   is mid-gray at ~14% (going dark) and ~66% (going light) of the loop,
+   on both wide (desktop) and tall (phone) screens */
+@keyframes readableText {
+  0%, 13.7% {
+    color: black;
+    text-shadow: 0 0 2px white, 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+  13.9%, 65.6% {
+    color: white;
+    text-shadow: 0 0 2px black, 0 0 8px rgba(0, 0, 0, 0.8);
+  }
+  65.8%, 100% {
+    color: black;
+    text-shadow: 0 0 2px white, 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+}
+@keyframes negativeGradient {
+  0% {
+    background-color: black;
+    color: white;
+  }
+  50% {
+    background-color: white;
+    color: black;
+  }
+  100% {
+    background-color: black;
+    color: white;
+  }
+}

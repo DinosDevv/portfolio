@@ -1,0 +1,201 @@
+*, html{
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  width: 100%;
+  height:100%;
+  font-family: "Geist Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 62.5% of the browser default (16px) = 10px, so 1rem = 10px
+   but users who set a bigger default font still get bigger text */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  animation: readableText 15s linear infinite;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+/* the animated gradient lives on a fixed layer behind the page, so it
+   stays pinned to the screen instead of repeating as you scroll
+   (background-attachment: fixed would do the same, but iOS ignores it) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  z-index: -1;
+  background: linear-gradient(-45deg, black, #0A0A0A, lightgray, white);
+  background-size: 500% 500%;
+  animation: gradient 15s ease infinite;
+}
+
+.content > div > h1 {
+  font-size: 2.4rem;
+}
+
+.project_card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 42rem;
+  background-color: black;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1.5rem;
+  border-radius: 15px;
+  cursor: pointer;
+  overflow: hidden;
+  text-shadow: none;
+}
+.project_card h1 {
+  font-size: 2rem;
+  line-height: 1.3;
+}
+.project_card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 1.2rem 0;
+}
+.project_card h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.content .project_card p {
+  font-size: 1.3rem;
+  color: #b5b5b5;
+  margin-top: auto;
+}
+.project_card a {
+  color: white;
+  text-decoration: underline;
+}
+nav div.right, nav div.left {
+  display: block;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: fit-content;
+  margin: 4rem auto 0 auto;
+  padding-top: 0;
+}
+.main h1 {
+  font-size: 3rem;
+}
+.main p {
+  font-size: 1.6rem;
+}
+.section {
+  margin-top: 5vw;
+}
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.main img{
+  margin: 50px;
+  border-radius: 100%;
+  border: 2px solid black;
+  width: 200px;
+}
+.dinos{
+  font-size: 2rem;
+  font-weight: bold;
+}
+header{
+  overflow: hidden;
+}
+nav{
+  display: flex;
+  flex-direction: row;
+  padding: 25px;
+  justify-content: space-between;
+  background-color: #0A0A0A;
+  text-shadow: none;
+  position: sticky;
+  top: 0px;
+}
+.project_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  margin-top: 3rem;
+  gap: 3rem;
+}
+
+.content {
+  margin: 30rem 20% 0px 20%;
+}
+.content div p, footer div p {
+  margin-top: 25px;
+}
+footer div p {
+  font-size: 1.3rem;
+}
+nav a{
+  font-size: 1.4rem;
+  color: #a3a3a3;
+  margin: 0px 5px 0px 5px;
+}
+.technologies {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  justify-content: start;
+  margin-top: 1vw;
+}
+.icons {
+  background-color: #ffffff;
+  margin: 1em;
+  width: 2em;
+  height: 2em;
+  padding: 0.5vw;
+  border-radius: 100%;
+  animation: negativeGradient 15s ease infinite;
+}
+.icons img{
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+}
+.socials {
+  margin-top: 10vw;
+  align-items: center;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+.socialIcons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+a{
+  text-decoration: none;
+}
