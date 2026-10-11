@@ -13,21 +13,66 @@
     display: grid;
     grid-template-columns: auto auto auto auto;
   }
+  /* logo + burger on one row, links drop down below when the menu is open */
   nav {
+    flex-wrap: wrap;
+    padding: 15px 20px;
+  }
+  nav .burger_menu_btn {
+    display: block;
+  }
+  /* small enough that the logo and the burger fit on one row */
+  nav .dinos {
+    font-size: 1.5rem;
+  }
+  nav div.right {
     display: none;
+    width: 100%;
     flex-direction: column;
     align-items: center;
+    gap: 1.2rem;
+    padding-top: 1.6rem;
+    order: 1; /* drop below the logo + burger row */
+  }
+  nav.nav-open div.right {
+    display: flex;
+  }
+  nav div.right a {
+    font-size: 1.6rem;
+  }
+  nav .terminal_btn {
+    margin-left: 0;
+  }
+  /* 16px+ stops iOS from zooming in when the terminal input is focused */
+  .terminal .terminal_input input {
+    font-size: 1.6rem;
   }
 
   .main {
     margin: 4rem 5% 0px 5%;
   }
   .content  {
-    margin: 30rem 10% 0px 10%;
+    margin: 8rem 10% 0px 10%;
   }
   .project_container{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* narrower label column so the values get most of the width */
+  #about .whoami {
+    padding: 1.2rem 1.4rem;
+    font-size: 1.3rem;
+  }
+  #about .whoami div {
+    grid-template-columns: 8ch 1fr;
+    gap: 0.8rem;
+  }
+  #skillsntech .code_block {
+    padding: 1.2rem 1.4rem;
+    font-size: 1.3rem;
   }
 }
 @media screen and (max-width: 400px) {

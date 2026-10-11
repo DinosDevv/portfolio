@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="styles/animations.css">
   <link rel="stylesheet" href="styles/mobile-responsiveness.css">
+  <link rel="stylesheet" href="styles/interactive.css">
+  <script src="index.js" defer></script>
+  <script>
+    // boot screen: hide the page before it's drawn (index.js shows it again),
+    // once per session. The timeout is a safety net in case index.js fails.
+    try {
+      if (!sessionStorage.getItem("booted") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("booting");
+        setTimeout(() => document.documentElement.classList.remove("booting"), 4000);
+      }
+    } catch (e) {}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -22,79 +34,152 @@
         <a href="#experience">Experience</a>
         <a href="#skillsntech">Skills & Technologies</a>
         <a href="#about">About Me</a>
+        <button type="button" class="terminal_btn" aria-label="Open terminal">&gt;_ terminal</button>
       </div>
+      <button type="button" class="burger_menu_btn" aria-label="Menu" aria-expanded="false" aria-controls="r">☰</button>
     </nav>
   </header>
   <div class="main">
     <img src="public/pfp.png" alt="Konstantinos Bourdakos">
     <h1>&lttitle&gt Konstantinos N. Bourdakos &lt/title&gt</h1>
     <p>FullStack Developer | Aspiring Cloud Engineer | Computer Engineering Student</p>
+    <p class="tagline">I build tools that make tech easier, for dev teams and for grandparents.</p>
+    <p class="availability"><span class="status_dot" aria-hidden="true"></span>Open to internships, freelance work &amp; collaborations</p>
+    <div class="hero_actions">
+      <a class="hero_btn hero_btn_primary" href="#projects">./view-projects</a>
+      <button type="button" class="hero_btn terminal_btn">&gt;_ terminal</button>
+    </div>
   </div>
   <div class="content">
+    <div class="stats">
+      <div class="stat"><span class="stat_value" data-count="10">10</span><span class="stat_label">age I wrote my first line of code</span></div>
+      <div class="stat"><span class="stat_value" data-count="5" data-suffix="th / 21">5th / 21</span><span class="stat_label">at my first hackathon</span></div>
+      <div class="stat"><span class="stat_value" data-count="3">3</span><span class="stat_label">projects built</span></div>
+      <div class="stat"><span class="stat_value" data-count="200" data-suffix="+">200+</span><span class="stat_label">clients handled</span></div>
+    </div>
     <div id="projects" class="projects">
-      <h1>&lth1&gtProjects&lt/h1&gt</h1>
+      <h1 data-label="Projects">$ ls ~/projects</h1>
       <div class="project_container">
-        <div class="project_card">
+        <div class="project_card" data-project="nona-pd">
+          <div class="window_bar" aria-hidden="true">
+            <span class="window_dots"><i></i><i></i><i></i></span>
+            <span class="window_file">nona-pd.tsx</span>
+          </div>
           <h1>Nona PD</h1>
           <img src="public/nona-pd.png" alt="Nona Project dashboard">
-          <h2>Project Dashboard for small dev teams</h2>
-          <p>Technologies used: React, TypeScript, Supabase <a href="https://github.com/DinosDevv/Nona-PD">Check it here.</a></p>
+          <h2>Keeps small dev teams organized: tasks, assignees, roles and time tracking in one place.</h2>
+          <div class="card_footer">
+            <ul class="card_chips" aria-label="Technologies"><li>React</li><li>TypeScript</li><li>Supabase</li></ul>
+            <a class="card_link" href="https://github.com/DinosDevv/Nona-PD">View repo ↗</a>
+          </div>
         </div>
-        <div class="project_card">
+        <div class="project_card" data-project="helpnona">
+          <div class="window_bar" aria-hidden="true">
+            <span class="window_dots"><i></i><i></i><i></i></span>
+            <span class="window_file">helpnona.tsx</span>
+          </div>
           <h1>HelpNONA</h1>
           <img src="public/HelpNONA.png" alt="Help Nona">
-          <h2>A "digital grandkid", a helper designed to assist the elderly when navigating modern technology</h2>
-          <p>Technologies used: React Native, TypeScript, Express.js <a href="https://github.com/DinosDevv/hackathon2026">Check it here.</a></p>
+          <div class="card_badge">5th of 21 teams</div>
+          <h2>A "digital grandkid" for the elderly, built at Open Hackathon 2026.</h2>
+          <div class="card_footer">
+            <ul class="card_chips" aria-label="Technologies"><li>React Native</li><li>TypeScript</li><li>Express.js</li></ul>
+            <a class="card_link" href="https://github.com/DinosDevv/hackathon2026">View repo ↗</a>
+          </div>
         </div>
-        <div class="project_card">
+        <div class="project_card" data-project="noai-academy">
+          <div class="window_bar" aria-hidden="true">
+            <span class="window_dots"><i></i><i></i><i></i></span>
+            <span class="window_file">roadmap.pdf</span>
+          </div>
           <h1>No AI academy</h1>
           <img src="public/noai_academy.png" alt="No AI coding academy">
           <h2>A project that promotes the engineering of software without the assistance of LLMs, with one goal: keep programmers warmed up at all times!</h2>
-          <p>No technologies were used <a href="/No-AI Full-Stack Roadmap.pdf" download>Download it here.</a></p>
+          <div class="card_footer">
+            <ul class="card_chips" aria-label="Technologies"><li>PDF</li><li>LLM-free</li></ul>
+            <a class="card_link" href="/No-AI Full-Stack Roadmap.pdf" download>Download ↓</a>
+          </div>
         </div>
       </div>
 
     </div>
     <div id="experience" class="section">
-      <h1>&lth1&gtExperience&lt/h1&gt</h1>
-      <p>&ltp&gtI worked as a secretary at a large business with 200+ clients, where I coordinated my team and introduced digital solutions to everyday problems. Handling clients was at the core of the job, which sharpened my communication and customer service skills.&lt/p&gt</p>
+      <h1 data-label="Experience">$ git log experience</h1>
+      <div class="timeline">
+        <article class="timeline_item">
+          <h3>Co-Founder · TeamNona</h3>
+          <p class="timeline_meta">Open Hackathon 2026 · Open Conference × Zone01 · Nea Ionia, Athens</p>
+          <ul>
+            <li><span class="commit_type">feat:</span> built HelpNONA, an MVP "digital grandkid" for the elderly, as a two-person team</li>
+            <li><span class="commit_type">release:</span> placed 5th out of 21 teams at our first ever hackathon</li>
+          </ul>
+        </article>
+        <article class="timeline_item">
+          <h3>Secretary · Large business (200+ clients)</h3>
+          <p class="timeline_meta">Office &amp; client operations</p>
+          <ul>
+            <li><span class="commit_type">perf:</span> Python scripts that mass-generate client spreadsheets from a template, turning a slow manual task into a near-instant one</li>
+            <li><span class="commit_type">chore:</span> moved the team to cloud-based services so everyone works from the same shared data</li>
+            <li><span class="commit_type">ops:</span> coordinated the team and handled clients every day, sharpening my communication and customer service skills</li>
+          </ul>
+        </article>
+      </div>
     </div>
     <div id="skillsntech" class="section">
-      <h1>&lth1&gtSkills & Technology&lt/h1&gt</h1>
-      <p>&ltp&gtI build front-ends with JavaScript/TypeScript and React (React Native on mobile), and back-ends with Node.js, Express and PostgreSQL/Supabase. I use Git and GitHub for version control, and I know my way around Linux and its terminal.&lt/p&gt</p>
+      <h1 data-label="Skills and technology">$ cat skills.json</h1>
+      <div class="code_window">
+        <div class="window_bar" aria-hidden="true">
+          <span class="window_dots"><i></i><i></i><i></i></span>
+          <span class="window_file">skills.json</span>
+        </div>
+<pre class="code_block"><code>{
+  <span class="tok_key">"frontend"</span>: [<span class="tok_str">"JavaScript"</span>, <span class="tok_str">"TypeScript"</span>, <span class="tok_str">"React"</span>, <span class="tok_str">"React Native"</span>],
+  <span class="tok_key">"backend"</span>: [<span class="tok_str">"Node.js"</span>, <span class="tok_str">"Express"</span>, <span class="tok_str">"PostgreSQL"</span>, <span class="tok_str">"Supabase"</span>],
+  <span class="tok_key">"tools"</span>: [<span class="tok_str">"Git"</span>, <span class="tok_str">"GitHub"</span>, <span class="tok_str">"Linux"</span>],
+  <span class="tok_key">"next_up"</span>: [<span class="tok_str">"AWS"</span>, <span class="tok_str">"Docker"</span>, <span class="tok_str">"Kubernetes"</span>, <span class="tok_str">"Next.js"</span>]
+}</code></pre>
+      </div>
       <div class="technologies">
-        <div class="icons">
+        <div class="icons" data-skill="javascript">
           <img src="public/icons/javascript.jpg" alt="javascript">
         </div>
-        <div class="icons">
+        <div class="icons" data-skill="typescript">
           <img src="public/icons/typescript.jpg" alt="typescript">
         </div>
-        <div class="icons">
+        <div class="icons" data-skill="react">
           <img src="public/icons/react.png" alt="React">
         </div>
-        <div class="icons">
+        <div class="icons" data-skill="git">
           <img src="public/icons/git.png" alt="git version control">
         </div>
-        <div class="icons">
+        <div class="icons" data-skill="github">
           <img src="public/icons/github.png" alt="github">
         </div>
-        <div class="icons">
+        <div class="icons" data-skill="node">
           <img src="public/icons/node.png" alt="Node.js">
         </div>
-        <div class="icons">
+        <div class="icons" data-skill="postgresql">
           <img src="public/icons/postgre.png" alt="PostgreSQL">
         </div>
-        <div class="icons">
+        <div class="icons" data-skill="linux">
           <img src="public/icons/linux.png" alt="linux operating system">
         </div>
 
       </div>
     </div>
     <div id="about" class="section">
-      <h1>&lth1&gtAbout Me&lt/h1&gt</h1>
-      <p>&ltp&gtHey everyone! My name is Konstantinos Bourdakos (DinosDevv) and I'm a computer engineering student in Athens, Greece. I've been passionate about computers for as long as I can remember.&lt/p&gt</p>
-      <p>&ltp&gtI wrote my first line of code when I was 10 years old, dreaming of recreating Minecraft so I could add all the features I wanted. The moment I saw "Hello World" on the screen, my fate as a Tech Guy was sealed. I explored other challenging hobbies along the way (yeah, I love challenges!), but I always came back to code.&lt/p&gt</p>
-      <p>&ltp&gtFast forward to today, I'm learning full-stack development, cloud engineering and infrastructure, with the goal of building solutions to real-world problems.&lt/p&gt</p>
+      <h1 data-label="About me">$ whoami</h1>
+      <dl class="whoami">
+        <div><dt>name</dt><dd>Konstantinos Bourdakos (DinosDevv)</dd></div>
+        <div><dt>location</dt><dd>Athens, Greece</dd></div>
+        <div><dt>studying</dt><dd>Computer Engineering</dd></div>
+        <div><dt>focus</dt><dd>full-stack, cloud &amp; infrastructure</dd></div>
+        <div><dt>coding</dt><dd>since age 10 (blame Minecraft)</dd></div>
+        <div><dt>offline</dt><dd>gym, friends</dd></div>
+        <div><dt>status</dt><dd>open to internships · freelance · collabs</dd></div>
+      </dl>
+      <p class="story">I wrote my first line of code at 10, dreaming of recreating Minecraft so I could add all the features I wanted. The moment "Hello World" appeared on the screen, my fate as a Tech Guy was sealed. I tried plenty of other challenges along the way (yeah, I love challenges!), but I always came back to code.</p>
+      <p class="story">Building something interesting? Reach out through the links below ↓</p>
     </div>
     <footer>
       <div class="socials">
@@ -119,5 +204,31 @@
       </div>
     </footer>
   </div>
+  <dialog id="project-dialog" class="project_dialog" aria-labelledby="project-dialog-title">
+    <div class="window_bar">
+      <span class="window_dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="window_file" aria-hidden="true"></span>
+      <button type="button" class="dialog_close" aria-label="Close">✕</button>
+    </div>
+    <h2 id="project-dialog-title"></h2>
+    <img alt="">
+    <p class="dialog_description"></p>
+    <div class="dialog_extra"></div>
+    <ul class="dialog_stack" aria-label="Technologies used"></ul>
+    <a class="dialog_link" href=""></a>
+  </dialog>
+
+  <dialog id="terminal" class="terminal" aria-label="Terminal">
+    <div class="terminal_bar">
+      <span class="window_dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>guest@dinosdevv: ~</span>
+      <button type="button" class="dialog_close" aria-label="Close terminal">✕</button>
+    </div>
+    <div class="terminal_output" aria-live="polite"></div>
+    <form class="terminal_input">
+      <label for="terminal-input">guest@dinosdevv:~$</label>
+      <input id="terminal-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false">
+    </form>
+  </dialog>
   </body>
 </html>

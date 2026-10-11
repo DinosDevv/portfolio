@@ -20,6 +20,10 @@ html {
 }
 
 body {
+  /* min-height instead of height: with a fixed height the body ends after
+     one screen, and the sticky header can't stick past the end of it */
+  height: auto;
+  min-height: 100%;
   animation: readableText 15s linear infinite;
   font-size: 1.6rem;
   line-height: 1.6;
@@ -127,18 +131,21 @@ img {
   font-size: 2rem;
   font-weight: bold;
 }
+/* sticky goes on the header: a sticky element only sticks inside its
+   parent, and the header was exactly as tall as the nav */
 header{
-  overflow: hidden;
+  position: sticky;
+  top: 0px;
+  z-index: 10;
 }
 nav{
   display: flex;
   flex-direction: row;
+  align-items: center;
   padding: 25px;
   justify-content: space-between;
   background-color: #0A0A0A;
   text-shadow: none;
-  position: sticky;
-  top: 0px;
 }
 .project_container {
   display: grid;
@@ -149,7 +156,7 @@ nav{
 }
 
 .content {
-  margin: 30rem 20% 0px 20%;
+  margin: 10rem 20% 0px 20%;
 }
 .content div p, footer div p {
   margin-top: 25px;

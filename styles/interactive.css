@@ -1,0 +1,672 @@
+/* everything here sits on dark backgrounds, so it sets its own color and
+   turns off the text-shadow that body animates (readableText) */
+
+.visually_hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* nav links and the terminal's goto land below the sticky header,
+   not underneath it */
+.content > div[id] {
+  scroll-margin-top: 100px;
+}
+
+/* ---------- typing ---------- */
+
+.type_cursor {
+  display: inline-block;
+  margin-left: 0.1em;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------- nav buttons ---------- */
+
+.terminal_btn {
+  font: inherit;
+  font-size: 1.3rem;
+  color: #a3a3a3;
+  background: none;
+  border: 1px solid #a3a3a3;
+  border-radius: 4px;
+  padding: 0.2rem 0.8rem;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+.terminal_btn:hover, .terminal_btn:focus-visible {
+  color: white;
+  border-color: white;
+}
+
+.burger_menu_btn {
+  display: none;
+  font: inherit;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: #ededed;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ---------- project cards ---------- */
+
+.project_card:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project_card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  }
+  .project_card:hover {
+    transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ---------- skill tooltips ---------- */
+
+.icons[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+.icons[data-tooltip]::after {
+  content: attr(data-tooltip);
+  /* display: none (not opacity) so hidden tooltips can't widen the page */
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 22rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  background: #0A0A0A;
+  color: #ededed;
+  text-shadow: none;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  text-align: center;
+  z-index: 5;
+  pointer-events: none;
+}
+.icons[data-tooltip]:hover::after,
+.icons[data-tooltip]:focus::after {
+  display: block;
+}
+.icons[data-tooltip]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ---------- dialogs (project panel + terminal) ---------- */
+
+.project_dialog, .terminal {
+  margin: auto;
+  background: #0A0A0A;
+  color: #ededed;
+  text-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  font-family: inherit;
+}
+.project_dialog::backdrop, .terminal::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.dialog_close {
+  font: inherit;
+  font-size: 1.6rem;
+  color: #a3a3a3;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.dialog_close:hover, .dialog_close:focus-visible {
+  color: white;
+}
+
+.project_dialog {
+  box-sizing: border-box;
+  width: min(56rem, calc(100vw - 32px));
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: 2.4rem;
+}
+.project_dialog .window_bar {
+  /* stretch the bar to the dialog's edges, past its padding */
+  margin: -2.4rem -2.4rem 2rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px 12px 0 0;
+}
+.project_dialog h2 {
+  font-size: 2.4rem;
+}
+.project_dialog img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 1.6rem 0;
+}
+.dialog_description, .dialog_extra {
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+.dialog_extra p, .dialog_extra ul {
+  margin-top: 1.2rem;
+}
+.dialog_extra ul {
+  padding-left: 2rem;
+}
+.dialog_stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+  margin-top: 1.6rem;
+}
+.dialog_stack li {
+  font-size: 1.2rem;
+  padding: 0.2rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+}
+.dialog_link {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 6px;
+  background: white;
+  color: black;
+  font-size: 1.4rem;
+}
+.dialog_link[hidden] {
+  display: none;
+}
+
+/* ---------- terminal ---------- */
+
+.terminal {
+  box-sizing: border-box;
+  width: min(76rem, calc(100vw - 32px));
+  height: min(48rem, 80dvh);
+  padding: 0;
+  overflow: hidden;
+}
+.terminal[open] {
+  display: flex;
+  flex-direction: column;
+}
+.terminal_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #1a1a1a;
+  color: #a3a3a3;
+  font-size: 1.3rem;
+}
+.terminal_output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.2rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.terminal_output a {
+  color: white;
+  text-decoration: underline;
+}
+.term_cmd {
+  color: #a3a3a3;
+  margin-top: 0.6rem;
+}
+.term_error {
+  color: #ff9b9b;
+}
+.terminal_input {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0 1.2rem 1.2rem;
+  font-size: 1.4rem;
+}
+.terminal_input label {
+  color: #a3a3a3;
+  white-space: nowrap;
+}
+.terminal_input input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: #ededed;
+  caret-color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+/* ---------- editor window chrome ---------- */
+
+.window_bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a3a3a3;
+  font-size: 1.2rem;
+  text-shadow: none;
+}
+.window_bar .dialog_close {
+  margin-left: auto;
+}
+.window_dots {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+.window_dots i {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: #4a4a4a;
+}
+.window_file {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card_badge {
+  align-self: flex-start;
+  margin-bottom: 0.8rem;
+  padding: 0.2rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  font-size: 1.1rem;
+  color: #ededed;
+}
+
+/* the cards keep their padding, the bar stretches to the card's edges */
+.project_card .window_bar {
+  margin: -1.5rem -1.5rem 1.2rem;
+  padding: 0.6rem 1.2rem;
+}
+
+/* ---------- boot screen ---------- */
+
+/* the page stays hidden while booting; the boot screen itself stays visible */
+html.booting body {
+  visibility: hidden;
+}
+#boot {
+  visibility: visible;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  background: #0A0A0A;
+  color: #ededed;
+  text-shadow: none;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  transition: opacity 0.35s ease;
+}
+#boot.boot_done {
+  opacity: 0;
+  pointer-events: none;
+}
+.boot_status {
+  color: #a3a3a3;
+  white-space: pre;
+}
+.boot_hint {
+  margin-top: auto;
+  color: #6c6c6c;
+  font-size: 1.2rem;
+}
+
+/* ---------- status bar ---------- */
+
+.status_bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.3rem 1.2rem calc(0.3rem + env(safe-area-inset-bottom));
+  background: #0A0A0A;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a3a3a3;
+  text-shadow: none;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+.status_bar > div {
+  display: flex;
+  gap: 1.6rem;
+  min-width: 0;
+}
+.status_item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.status_bar a {
+  color: inherit;
+}
+.status_bar a:hover {
+  color: white;
+}
+/* room at the bottom so the bar never covers the footer */
+body.has_status_bar {
+  padding-bottom: 3rem;
+}
+@media (max-width: 500px) {
+  .status_optional {
+    display: none;
+  }
+}
+
+/* ---------- reactive background grid ---------- */
+
+/* a faint grid over the animated gradient. mid-gray lines show up on
+   both the black and the white phase of the background */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+/* the same grid, brighter, only visible in a circle around the cursor */
+.grid_spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background-image:
+    radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), rgba(128, 128, 128, 0.12), transparent),
+    linear-gradient(rgba(128, 128, 128, 0.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128, 128, 128, 0.45) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  -webkit-mask-image: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), black, transparent);
+  mask-image: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), black, transparent);
+}
+.grid_spotlight.grid_spotlight_on {
+  opacity: 1;
+}
+
+/* ---------- hero copy ---------- */
+
+/* these sit straight on the animated background, so they use currentColor
+   (the body's black/white text color) instead of fixed colors */
+.main .tagline {
+  max-width: 60ch;
+  margin-top: 1.6rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+.main .availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+  padding: 0.3rem 1.2rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 1.3rem;
+}
+/* the one bit of color on the page: the universal "available" green */
+.status_dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: #3fb950;
+  box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.6);
+  animation: pulse 2s ease-out infinite;
+}
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 0.8rem rgba(63, 185, 80, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(63, 185, 80, 0);
+  }
+}
+
+.hero_actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 2.4rem;
+}
+.hero_btn {
+  font: inherit;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.8rem;
+  margin: 0;
+  border-radius: 6px;
+  border: 1px solid currentColor;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.hero_btn:hover, .hero_btn:focus-visible {
+  transform: translateY(-2px);
+  color: inherit;
+  border-color: currentColor;
+}
+.hero_btn_primary {
+  background: #0A0A0A;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.35);
+  text-shadow: none;
+}
+.hero_btn_primary:hover, .hero_btn_primary:focus-visible {
+  color: white;
+  border-color: white;
+}
+
+/* ---------- experience timeline ---------- */
+
+.timeline {
+  display: grid;
+  gap: 2.8rem;
+  margin-top: 2.5rem;
+  padding-left: 2rem;
+  border-left: 1px solid rgba(128, 128, 128, 0.6);
+}
+.timeline_item {
+  position: relative;
+}
+/* the dot on the line */
+.timeline_item::before {
+  content: "";
+  position: absolute;
+  left: calc(-2rem - 5px);
+  top: 0.8rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.timeline_item h3 {
+  font-size: 1.8rem;
+  line-height: 1.4;
+}
+.content .timeline_meta {
+  margin-top: 0.2rem;
+  font-size: 1.3rem;
+  opacity: 0.75;
+}
+.timeline_item ul {
+  margin-top: 1rem;
+  list-style: none;
+}
+/* commit-message prefixes: feat:, perf:, chore: ... */
+.commit_type {
+  font-weight: 700;
+}
+.timeline_item li + li {
+  margin-top: 0.4rem;
+}
+
+/* ---------- stats row ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 6rem;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-left: 1.4rem;
+  border-left: 1px solid rgba(128, 128, 128, 0.6);
+}
+.stat_value {
+  font-size: 3.2rem;
+  white-space: nowrap;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.stat_label {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  opacity: 0.75;
+}
+
+/* ---------- project card footer ---------- */
+
+.card_footer {
+  margin-top: auto; /* stays at the bottom of the fixed-height card */
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.card_chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+}
+.card_chips li {
+  font-size: 1.1rem;
+  padding: 0.1rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: #b5b5b5;
+}
+.project_card .card_link {
+  font-size: 1.3rem;
+}
+
+/* ---------- dark "code" panels: skills.json + whoami ---------- */
+
+.code_window, .whoami {
+  margin-top: 2.5rem;
+  background: #0A0A0A;
+  color: #ededed;
+  text-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+}
+.code_window {
+  overflow: hidden;
+}
+.code_window .window_bar {
+  padding: 0.6rem 1.2rem;
+}
+.code_block {
+  margin: 0;
+  padding: 1.6rem 2rem;
+  font-family: inherit;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  /* wrap long lines on phones instead of scrolling sideways */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+/* grey-scale syntax highlighting to stay inside the black & white palette */
+.tok_key {
+  color: #a3a3a3;
+}
+.tok_str {
+  color: #ffffff;
+}
+
+.whoami {
+  padding: 1.6rem 2rem;
+  font-size: 1.4rem;
+  line-height: 1.8;
+}
+.whoami div {
+  display: grid;
+  grid-template-columns: 10ch 1fr;
+  gap: 1rem;
+}
+.whoami dt {
+  color: #a3a3a3;
+}
+
+/* ---------- terminal extras ---------- */
+
+.term_heading {
+  color: white;
+  font-weight: bold;
+}
+.term_muted {
+  color: #a3a3a3;
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .type_cursor, .status_dot {
+    animation: none;
+  }
+  .hero_btn:hover, .hero_btn:focus-visible {
+    transform: none;
+  }
+  .project_card, .project_card:hover {
+    transform: none;
+    transition: none;
+  }
+}
