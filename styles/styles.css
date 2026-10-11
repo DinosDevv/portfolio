@@ -17,6 +17,10 @@ html, body {
    but users who set a bigger default font still get bigger text */
 html {
   font-size: 62.5%;
+  /* safety net: if anything ever ends up wider than the screen, clip it
+     instead of letting phones zoom the whole page out. Only on html: on
+     body it would break the sticky header */
+  overflow-x: clip;
 }
 
 body {
@@ -149,7 +153,7 @@ nav{
 }
 .project_container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
   margin-top: 3rem;
   gap: 3rem;

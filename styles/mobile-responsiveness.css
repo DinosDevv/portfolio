@@ -56,10 +56,13 @@
   }
   .project_container{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .stats {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+  }
+  .stats .stat_value {
+    font-size: 2.4rem;
   }
   /* narrower label column so the values get most of the width */
   #about .whoami {
@@ -78,6 +81,6 @@
 @media screen and (max-width: 400px) {
   .project_container{
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
